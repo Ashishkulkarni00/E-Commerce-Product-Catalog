@@ -1,0 +1,67 @@
+package com.productCatalog.productCatalog.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Entity
+@Data
+@Table(name = "Categories")
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int category_id;
+
+    private String category_name;
+    private String category_description;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Product> products;
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public String getCategory_description() {
+        return category_description;
+    }
+
+    public void setCategory_description(String category_description) {
+        this.category_description = category_description;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public Category(int category_id, String category_name, String category_description, List<Product> products) {
+        this.category_id = category_id;
+        this.category_name = category_name;
+        this.category_description = category_description;
+        this.products = products;
+    }
+
+    public Category() {
+    }
+}
